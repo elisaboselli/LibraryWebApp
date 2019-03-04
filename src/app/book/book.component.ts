@@ -3,7 +3,7 @@ import { ApiService } from '../api.service';
 import { MatDialog, MatPaginator, MatSort, MatSortable, MatTableDataSource} from '@angular/material';
 
 import { Book } from '../../../models/Book';
-
+import { BookInfoDialogComponent } from '../book-info-dialog/book-info-dialog.component';
 
 @Component({
   selector: 'app-book',
@@ -41,5 +41,18 @@ export class BookComponent implements OnInit {
 
   applyFilter(filterValue: string) {
     this.dataSource.filter = filterValue.trim().toLowerCase();
+  }
+
+  openInfoDialog(id: string) {
+    this.api.getBook(id).subscribe(book => { 
+      console.log(book);
+      let dialogRef = this.dialog.open(BookInfoDialogComponent, {
+        height: '90%',
+        width: '600px',
+        data: book
+      });
+
+      dialogRef.afterClosed().subscribe();
+    });
   }
 }

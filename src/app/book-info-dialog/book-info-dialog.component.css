@@ -1,0 +1,31 @@
+.header {
+	background-color: royalblue;
+}
+
+.mat-dialog-title {
+	margin: 0px;
+	text-align: center;
+	color : white;
+}
+
+p {
+	font-style: italic;
+	color: black;
+}
+
+.mat-accordion {
+	color: white;
+}
+
+.mat-expansion-panel {
+	color : white;
+}
+
+.mat-dialog-actions {
+	justify-content: flex-end;
+}
+
+.mat-raised-button {
+	background-color : royalblue;
+	color : white;
+}

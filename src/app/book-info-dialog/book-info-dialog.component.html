@@ -1,3 +1,33 @@
-<p>
-  book-info-dialog works!
-</p>
+<div class="dialog">
+  <div class="header">
+    <h2 mat-dialog-title>{{data.title}}</h2>
+  </div>
+  
+  <mat-dialog-content>
+    <dl>
+      <dt>ISBN: {{data.isbn}}</dt>
+      <dt>Author: {{data.author}}</dt>
+      <dt>Publisher: {{data.publisher}}</dt>
+      <dt>Purchase Date: {{data.purchase_date | date : "dd/MM/yyyy"}}</dt>
+      <br>
+      <dt *ngIf="data.autoconclusive">Is autoconclusive</dt>
+      <dt *ngIf="!data.autoconclusive">Belongs to a saga ({{data.tome}})</dt>
+    </dl>
+  </mat-dialog-content>
+  <hr>
+
+  <mat-accordion>
+    <mat-expansion-panel synopsis class="mat-elevation-z0" (opened)="panelOpenState=true" (closed)="panelOpenState=false">
+      <mat-expansion-panel-header>
+        <mat-panel-title> Synopsis </mat-panel-title>
+      </mat-expansion-panel-header>
+      <p>{{data.synopsis}}</p>
+    </mat-expansion-panel>
+  </mat-accordion>
+
+  <mat-dialog-actions>
+    <button mat-raised-button (click)="onOk()"> <mat-icon>check_circle</mat-icon> </button>&nbsp;
+    <button mat-raised-button (click)="onEdit()"> <mat-icon>edit</mat-icon> </button>&nbsp;
+    <button mat-raised-button (click)="onDelete()"> <mat-icon>delete</mat-icon></button>&nbsp;
+  </mat-dialog-actions>
+</div>
