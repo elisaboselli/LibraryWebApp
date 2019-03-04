@@ -4,6 +4,7 @@ import { MatDialog, MatPaginator, MatSort, MatSortable, MatTableDataSource} from
 
 import { Book } from '../../../models/Book';
 import { BookInfoDialogComponent } from '../book-info-dialog/book-info-dialog.component';
+import { BookEditDialogComponent} from '../book-edit-dialog/book-edit-dialog.component';
 
 @Component({
   selector: 'app-book',
@@ -47,12 +48,32 @@ export class BookComponent implements OnInit {
     this.api.getBook(id).subscribe(book => { 
       console.log(book);
       let dialogRef = this.dialog.open(BookInfoDialogComponent, {
-        height: '90%',
         width: '600px',
         data: book
       });
 
-      dialogRef.afterClosed().subscribe();
+      dialogRef.afterClosed().subscribe(result => {
+        if(result == 2) {
+          this.openEditDialog(id);
+        }
+
+        if(result == 3) { 
+          this.api.deleteBook(id).subscribe(res => {}, (err) => { console.log(err); });
+          this.refresh();
+        }
+      });
+    });
+  }
+
+  openEditDialog(id: string) {
+    let dialogRef = this.dialog.open(BookEditDialogComponent, {
+      height: '90%',
+      width: '1000px',
+      data: id
+    });
+
+    dialogRef.afterClosed().subscribe(result => {
+      this.openInfoDialog(id);
     });
   }
 }

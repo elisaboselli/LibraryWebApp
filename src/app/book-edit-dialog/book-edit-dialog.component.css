@@ -1,0 +1,35 @@
+.header {
+	background-color: royalblue;
+}
+
+.mat-dialog-title {
+	margin: 0px;
+	text-align: center;
+	color : white;
+}
+
+.mat-dialog-content {
+	margin-top: 10px;
+}
+
+.mat-form-field {
+	display: inline;
+}
+
+p {
+	font-style: italic;
+	color: black;
+}
+
+.mat-dialog-actions {
+	justify-content: flex-end;
+}
+
+.mat-raised-button {
+	background-color : royalblue;
+	color : white;
+}
+
+.mat-checkbox-layout {
+	margin-bottom : 20px;
+}
