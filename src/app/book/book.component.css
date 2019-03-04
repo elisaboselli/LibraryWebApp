@@ -1,0 +1,47 @@
+.container {
+  padding: 10px 10px;
+  display: flex;
+  flex-direction: column;
+  min-width: 300px;
+  overflow: auto;
+  margin: 0px 40px;
+}
+
+.mat-toolbar {
+  background-color: white;
+}
+
+.button-row {
+  padding: 10px 10px;
+  margin: 0px 40px;
+}
+
+.button-row button {
+  margin-left: 8px;
+  margin-right: 15px;
+  background-color: royalblue;
+  color: white;
+}
+
+.mat-form-field {
+  font-size: 20px;
+  width: 60%;
+}
+
+.mat-header-cell {
+  font-size: 20px;
+  background-color: royalblue;
+  color: white;
+}
+
+.mat-table {
+  width: 100%;
+}
+
+td, th {
+  width: 25%;
+}
+
+.mat-paginator {
+  font-size: 15px;
+}
