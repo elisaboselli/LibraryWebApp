@@ -1,112 +1,56 @@
-styles.css (paste under comment)
+routes/book.js (replace all)
 
-@import '@angular/material/prebuilt-themes/indigo-pink.css';
+var express = require('express');
+var router = express.Router();
+var mongoose = require('mongoose');
+var Book = require('../models/Book.js');
 
-html, body { 
-	height: 100%; 
-}
+/* GET ALL BOOKS */
+router.get('/', function(req, res, next) {
+  Book.find(function (err, products) {
+    if (err) return next(err);
+    res.json(products);
+  });
+});
 
-body { 
-	margin: 0 0; 
-	font-family: Roboto, "Helvetica Neue", 
-	sans-serif; 
-}
+/* GET SINGLE BOOK BY ID */
+router.get('/:id', function(req, res, next) {
+  Book.findById(req.params.id, function (err, post) {
+    if (err) return next(err);
+    res.json(post);
+  });
+});
 
-.mat-sort-header-arrow {
-	color: white !important;
-	opacity: 1 !important;
-}
+/* GET SINGLE BOOK BY TITLE */
+router.get('/:title', function(req, res, next) {
+  Book.find({ title: 'Prueba'}, function (err, post) {
+    if (err) return next(err);
+    res.json(post);
+  });
+});
 
+/* SAVE BOOK */
+router.post('/', function(req, res, next) {
+  Book.create(req.body, function (err, post) {
+    if (err) return next(err);
+    res.json(post);
+  });
+});
 
--------------------------------------------------------------------------------------------
+/* UPDATE BOOK */
+router.put('/:id', function(req, res, next) {
+  Book.findByIdAndUpdate(req.params.id, req.body, function (err, post) {
+    if (err) return next(err);
+    res.json(post);
+  });
+});
 
-app.modules.ts (replace all)
+/* DELETE BOOK */
+router.delete('/:id', function(req, res, next) {
+  Book.findByIdAndRemove(req.params.id, req.body, function (err, post) {
+    if (err) return next(err);
+    res.json(post);
+  });
+});
 
-
-import { BrowserModule } from '@angular/platform-browser';
-import { NgModule } from '@angular/core';
-import { RouterModule, Routes } from '@angular/router';
-import { FormsModule, ReactiveFormsModule } from '@angular/forms';
-import { HttpClientModule } from '@angular/common/http';
-
-import { AppRoutingModule } from './app-routing.module';
-import { AppComponent } from './app.component';
-import { BookComponent } from './book/book.component';
-import { BookCreateDialogComponent } from './book-create-dialog/book-create-dialog.component';
-import { BookInfoDialogComponent } from './book-info-dialog/book-info-dialog.component';
-import { BookEditDialogComponent } from './book-edit-dialog/book-edit-dialog.component';
-import { BrowserAnimationsModule } from '@angular/platform-browser/animations';
-
-import {
-  MatInputModule,
-  MatPaginatorModule,
-  MatProgressSpinnerModule,
-  MatSortModule,
-  MatTableModule,
-  MatIconModule,
-  MatButtonModule,
-  MatCardModule,
-  MatFormFieldModule,
-  MatToolbarModule,
-  MatDialogModule,
-  MatExpansionModule,
-  MatDatepickerModule, 
-  MatNativeDateModule,
-  MatCheckboxModule } from "@angular/material";
-
-const appRoutes: Routes = [
-  {
-    path: 'books',
-    component: BookComponent,
-    data: { title: 'Book List' }
-  },
-  { path: '',
-    redirectTo: '/books',
-    pathMatch: 'full'
-  }
-];
-
-@NgModule({
-  declarations: [
-    AppComponent,
-    BookComponent,
-    BookCreateDialogComponent,
-    BookInfoDialogComponent,
-    BookEditDialogComponent
-  ],
-  imports: [
-    RouterModule.forRoot(appRoutes),
-    BrowserModule,
-    FormsModule,
-    ReactiveFormsModule,
-    HttpClientModule,
-    BrowserAnimationsModule,
-    MatInputModule,
-    MatTableModule,
-    MatPaginatorModule,
-    MatSortModule,
-    MatProgressSpinnerModule,
-    MatIconModule,
-    MatButtonModule,
-    MatCardModule,
-    MatFormFieldModule,
-    MatToolbarModule,
-    MatDialogModule,
-    MatExpansionModule,
-    MatDatepickerModule, 
-    MatNativeDateModule,
-    MatCheckboxModule
-  ],
-  exports: [
-    MatDatepickerModule, 
-    MatNativeDateModule
-  ],
-  entryComponents: [
-    BookInfoDialogComponent, 
-    BookEditDialogComponent,
-    BookCreateDialogComponent
-  ],
-  providers: [],
-  bootstrap: [AppComponent]
-})
-export class AppModule { }
+module.exports = router;
