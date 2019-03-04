@@ -1,3 +1,54 @@
-<p>
-  book-create-dialog works!
-</p>
+<div class="dialog">
+    <div class= "header">
+        <h2 mat-dialog-title> NEW </h2>
+    </div>
+
+    <form [formGroup]="createBookForm" autocomplete="off" novalidate>
+
+      <mat-dialog-content>
+
+          <mat-form-field class="create-book">
+            <input matInput type="text" placeholder="ISBN" formControlName="isbn" id="isbn">
+            <mat-error *ngIf="hasError('isbn', 'required')">ISBN is required</mat-error>
+          </mat-form-field>
+
+          <mat-form-field class="create-book">
+            <input matInput type="text" placeholder="Title" formControlName="title" id="title">
+            <mat-error *ngIf="hasError('title', 'required')">Title is required</mat-error>
+          </mat-form-field>
+
+          <mat-form-field class="create-book">
+            <input matInput type="text" placeholder="Author" formControlName="author" id="author">
+            <mat-error *ngIf="hasError('author', 'required')">Author is required</mat-error>
+          </mat-form-field>
+
+          <mat-form-field class="create-book">
+            <input matInput type="text" placeholder="Publisher" formControlName="publisher" id="publisher">
+            <mat-error *ngIf="hasError('publisher', 'required')">Publisher is required</mat-error>
+          </mat-form-field>
+
+          <mat-form-field>
+              <input matInput [matDatepicker]="picker" placeholder="Purchase Date" formControlName="purchase_date" id="purchase_date" readonly (click)="picker.open()">
+              <mat-datepicker-toggle matSuffix [for]="picker"></mat-datepicker-toggle>
+              <mat-datepicker #picker></mat-datepicker>
+          </mat-form-field>
+
+          <mat-checkbox formControlName="autoconclusive"> Is autoconclusive </mat-checkbox>
+
+          <mat-form-field class="create-book" *ngIf="!createBookForm.value.autoconclusive">
+            <input matInput type="text" placeholder="Tome" formControlName="tome" id="tome">
+          </mat-form-field>
+
+          <mat-form-field class="create-book">
+            <textarea matInput type="text" placeholder="Synopsis" formControlName="synopsis" id="synopsis"> </textarea>
+            <mat-error *ngIf="hasError('synopsis', 'required')">Synopsis is required</mat-error>
+          </mat-form-field>
+
+      </mat-dialog-content>
+
+      <mat-dialog-actions>
+          <button mat-raised-button [disabled]="!createBookForm.valid" (click)="onFormSubmit(createBookForm.value)"><mat-icon>save_alt</mat-icon> </button>&nbsp;
+          <button mat-raised-button (click)="onCancel()"> <mat-icon>cancel</mat-icon></button>&nbsp;
+      </mat-dialog-actions>
+    </form>
+</div>
